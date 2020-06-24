@@ -81,16 +81,22 @@ console.log(calculateTotalBalance(dataUsers)); // 20916
 
 // task 8
 
+// const getUsersWithFriend = (users, friendName) => {
+//   let friend = [];
+//   users.filter((currVal) => {
+//     currVal.friends.forEach((curElem) => {
+//       if (curElem === friendName) {
+//         friend.push(currVal.name);
+//       }
+//     });
+//   });
+//   return friend;
+// };
+
 const getUsersWithFriend = (users, friendName) => {
-  let friend = [];
-  users.filter((currVal) => {
-    currVal.friends.forEach((curElem) => {
-      if (curElem === friendName) {
-        friend.push(currVal.name);
-      }
-    });
-  });
-  return friend;
+  return users
+    .filter((elem) => elem.friends.includes(friendName))
+    .map((curElem) => curElem.name);
 };
 
 console.log(getUsersWithFriend(dataUsers, "Briana Decker")); // [ 'Sharlene Bush', 'Sheree Anthony' ]
@@ -101,7 +107,11 @@ console.log(getUsersWithFriend(dataUsers, "Goldie Gentry")); // [ 'Elma Head', '
 const getNamesSortedByFriendsCount = (users) => {
   const sortByFriends = (a, b) => a.friends.length - b.friends.length;
   users.sort(sortByFriends);
-  return users;
+  let arrSortedByFriendsCount = [];
+  users.forEach((elem) => {
+    arrSortedByFriendsCount.push(elem.name);
+  });
+  return arrSortedByFriendsCount;
 };
 
 console.log(getNamesSortedByFriendsCount(dataUsers));
@@ -112,7 +122,6 @@ console.log(getNamesSortedByFriendsCount(dataUsers));
 const getSortedUniqueSkills = (users) => {
   let arrOfSkills = [];
   users.forEach((elem) => {
-    // console.log(elem.skills);
     arrOfSkills = [...arrOfSkills, ...elem.skills];
   });
   let arrOfUniqueSkills = [];
@@ -124,4 +133,4 @@ const getSortedUniqueSkills = (users) => {
   return arrOfUniqueSkills.sort();
 };
 console.log(getSortedUniqueSkills(dataUsers));
-// [ 'adipisicing', 'amet', 'anim', 'commodo', 'culpa', 'elit', 'ex', 'ipsum', 'irure', 'laborum', 'lorem', 'mollit', 'non', 'nostrud', 'nulla', 'proident', 'tempor', 'velit', 'veniam' ]
+// [ 'adipisicing', 'amet', 'anim', 'commodo', 'culpa', 'elit', 'ex', 'ipsum', 'irure', 'laborum', 'lorem', 'mollit', 'non', 'nostrud', 'nulla', 'proident', 'tempor', 'velit', 'veniam']
