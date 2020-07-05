@@ -1,0 +1,43 @@
+#ingredients {
+  font-size: 1.5em;
+  font-weight: bold;
+  list-style-type: circle;
+}
+#ingredients li {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+#gallery {
+  font-size: 1.5em;
+  font-weight: bold;
+  list-style-type: circle;
+}
+#gallery img {
+  display: flex;
+  width: auto;
+  height: 100px;
+}
+
+#validation-input {
+  border: 3px solid #bdbdbd;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+#validation-input.valid {
+  border-color: #4caf50;
+}
+
+#validation-input.invalid {
+  border-color: #f44336;
+}
+
+#text {
+  margin-bottom: 20px;
+};
+
+/* #boxes {
+    ;
+} */
