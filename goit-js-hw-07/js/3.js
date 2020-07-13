@@ -17,7 +17,6 @@ const images = [
 ];
 
 const gallery = document.querySelector("#gallery");
-gallery.textContent = "Галлерея";
 
 const arrOfLi = images.map((elem) => {
   const string = `<li> <img src='${elem.url}' alt='${elem.alt}'/> </li>`;

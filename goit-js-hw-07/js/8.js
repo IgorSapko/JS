@@ -27,10 +27,9 @@ let getRandomColor = function () {
 
 // butRende.addEventListener("click", createBoxes);
 
-const createBoxes = function (amount) {
-  amount = input.value;
+const createBoxes = function () {
   let arrOfDiv = [];
-  for (let i = 1; i <= amount; i += 1) {
+  for (let i = 1; i <= input.value; i += 1) {
     let curDiv = `<div style="background-color: ${getRandomColor()}; width: ${
       20 + i * 10
     }px; height: ${20 + i * 10}px;"></div>`;
