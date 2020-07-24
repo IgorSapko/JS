@@ -56,7 +56,11 @@ const imgModal = document.querySelector(".lightbox__image");
 
 const divLightboxFunk = function () {
   event.preventDefault();
-  console.log(event.target.dataset.source);
+
+  if (listOfPictures === event.target) {
+    return;
+  }
+
   divLightbox.classList.toggle("is-open");
   imgModal.src = event.target.dataset.source;
 };
