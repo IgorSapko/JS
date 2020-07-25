@@ -63,21 +63,26 @@ const divLightboxFunk = function () {
 
   divLightbox.classList.toggle("is-open");
   imgModal.src = event.target.dataset.source;
+  if (divLightbox.classList.contains("is-open")) {
+    window.addEventListener("keydown", controlLeftFunk);
+    window.addEventListener("keydown", controlRightFunk);
+    window.addEventListener("keydown", controlDownFunk);
+    window.addEventListener("keydown", controlUpFunk);
+  }
 };
 
 listOfPictures.addEventListener("click", divLightboxFunk);
 
 const btnClose = document.querySelector(".lightbox__button");
-// console.log(btnClose);
 
 const closeModalWindowFunk = function () {
   divLightbox.classList.toggle("is-open");
   imgModal.src = "";
+  removeListenersFromWindowByCloseModalWindow();
 };
 
 btnClose.addEventListener("click", closeModalWindowFunk);
 const divLightboxOverlay = document.querySelector(".lightbox__overlay");
-// console.log(divLightboxOverlay)
 
 const closeModalWindowFunkLightbox = function () {
   if (event.target === btnClose) {
@@ -85,20 +90,18 @@ const closeModalWindowFunkLightbox = function () {
   }
   divLightbox.classList.toggle("is-open");
   imgModal.src = "";
+  removeListenersFromWindowByCloseModalWindow();
 };
 
 divLightbox.addEventListener("click", closeModalWindowFunkLightbox);
 
 const closeModalWindowByESCFunk = function ({ key }) {
   if (divLightbox.classList.contains("is-open") && key === "Escape") {
+    removeListenersFromWindowByCloseModalWindow();
     closeModalWindowFunk();
   }
 };
 listOfPictures.addEventListener("keydown", closeModalWindowByESCFunk);
-
-console.log(listOfPictures.children[1].childNodes[1].href);
-
-console.log(listOfPictures.children.length);
 
 function controlDownFunk({ key }) {
   if (key === "ArrowDown") {
@@ -114,7 +117,6 @@ function controlDownFunk({ key }) {
     }
   }
 }
-window.addEventListener("keydown", controlDownFunk);
 
 function controlUpFunk({ key }) {
   if (key === "ArrowUp") {
@@ -130,7 +132,6 @@ function controlUpFunk({ key }) {
     }
   }
 }
-window.addEventListener("keydown", controlUpFunk);
 
 function controlRightFunk({ key }) {
   if (key === "ArrowRight") {
@@ -147,15 +148,10 @@ function controlRightFunk({ key }) {
   }
 }
 
-window.addEventListener("keydown", controlRightFunk);
-
 function controlLeftFunk({ key }) {
   if (key === "ArrowLeft") {
     for (let i = 0; i <= listOfPictures.children.length; i += 1) {
       if (listOfPictures.children[i].childNodes[1].href === imgModal.src) {
-        console.log(
-          listOfPictures.children[i].childNodes[1].href === imgModal.src
-        );
         if (i > 0) {
           imgModal.src = listOfPictures.children[i - 1].childNodes[1].href;
         } else {
@@ -167,4 +163,9 @@ function controlLeftFunk({ key }) {
   }
 }
 
-window.addEventListener("keydown", controlLeftFunk);
+function removeListenersFromWindowByCloseModalWindow() {
+  window.removeEventListener("keydown", controlLeftFunk);
+  window.removeEventListener("keydown", controlRightFunk);
+  window.removeEventListener("keydown", controlDownFunk);
+  window.removeEventListener("keydown", controlUpFunk);
+}
