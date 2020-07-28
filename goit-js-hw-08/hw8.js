@@ -56,18 +56,14 @@ const imgModal = document.querySelector(".lightbox__image");
 
 const divLightboxFunk = function () {
   event.preventDefault();
-
-  if (listOfPictures === event.target) {
+  if (event.currentTarget === event.target) {
     return;
   }
 
   divLightbox.classList.toggle("is-open");
   imgModal.src = event.target.dataset.source;
   if (divLightbox.classList.contains("is-open")) {
-    window.addEventListener("keydown", controlLeftFunk);
-    window.addEventListener("keydown", controlRightFunk);
-    window.addEventListener("keydown", controlDownFunk);
-    window.addEventListener("keydown", controlUpFunk);
+    window.addEventListener("keydown", controlFunction);
   }
 };
 
@@ -78,32 +74,38 @@ const btnClose = document.querySelector(".lightbox__button");
 const closeModalWindowFunk = function () {
   divLightbox.classList.toggle("is-open");
   imgModal.src = "";
-  removeListenersFromWindowByCloseModalWindow();
+  window.removeEventListener("keydown", controlFunction);
 };
 
 btnClose.addEventListener("click", closeModalWindowFunk);
 const divLightboxOverlay = document.querySelector(".lightbox__overlay");
 
 const closeModalWindowFunkLightbox = function () {
-  if (event.target === btnClose) {
+  console.log(event.target);
+  console.log(event.currentTarget);
+
+  if (event.target === btnClose || event.target === imgModal) {
     return;
   }
+  console.log(555);
   divLightbox.classList.toggle("is-open");
   imgModal.src = "";
-  removeListenersFromWindowByCloseModalWindow();
+  window.removeEventListener("keydown", controlFunction);
 };
 
 divLightbox.addEventListener("click", closeModalWindowFunkLightbox);
 
 const closeModalWindowByESCFunk = function ({ key }) {
+  console.log(222);
   if (divLightbox.classList.contains("is-open") && key === "Escape") {
-    removeListenersFromWindowByCloseModalWindow();
+    console.log(333);
+    window.removeEventListener("keydown", controlFunction);
     closeModalWindowFunk();
   }
 };
 listOfPictures.addEventListener("keydown", closeModalWindowByESCFunk);
 
-function controlDownFunk({ key }) {
+function controlFunction({ key }) {
   if (key === "ArrowDown") {
     for (let i = 0; i <= listOfPictures.children.length; i += 1) {
       if (listOfPictures.children[i].childNodes[1].href === imgModal.src) {
@@ -116,9 +118,7 @@ function controlDownFunk({ key }) {
       }
     }
   }
-}
 
-function controlUpFunk({ key }) {
   if (key === "ArrowUp") {
     for (let i = 0; i <= listOfPictures.children.length; i += 1) {
       if (listOfPictures.children[i].childNodes[1].href === imgModal.src) {
@@ -131,9 +131,6 @@ function controlUpFunk({ key }) {
       }
     }
   }
-}
-
-function controlRightFunk({ key }) {
   if (key === "ArrowRight") {
     for (let i = 0; i <= listOfPictures.children.length; i += 1) {
       if (listOfPictures.children[i].childNodes[1].href === imgModal.src) {
@@ -146,9 +143,6 @@ function controlRightFunk({ key }) {
       }
     }
   }
-}
-
-function controlLeftFunk({ key }) {
   if (key === "ArrowLeft") {
     for (let i = 0; i <= listOfPictures.children.length; i += 1) {
       if (listOfPictures.children[i].childNodes[1].href === imgModal.src) {
@@ -161,11 +155,4 @@ function controlLeftFunk({ key }) {
       }
     }
   }
-}
-
-function removeListenersFromWindowByCloseModalWindow() {
-  window.removeEventListener("keydown", controlLeftFunk);
-  window.removeEventListener("keydown", controlRightFunk);
-  window.removeEventListener("keydown", controlDownFunk);
-  window.removeEventListener("keydown", controlUpFunk);
 }
