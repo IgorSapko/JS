@@ -64,6 +64,7 @@ const divLightboxFunk = function () {
   imgModal.src = event.target.dataset.source;
   if (divLightbox.classList.contains("is-open")) {
     window.addEventListener("keydown", controlFunction);
+    window.addEventListener("keydown", closeModalWindowByESCFunk);
   }
 };
 
@@ -75,35 +76,31 @@ const closeModalWindowFunk = function () {
   divLightbox.classList.toggle("is-open");
   imgModal.src = "";
   window.removeEventListener("keydown", controlFunction);
+  window.removeEventListener("keydown", closeModalWindowByESCFunk);
 };
 
 btnClose.addEventListener("click", closeModalWindowFunk);
-const divLightboxOverlay = document.querySelector(".lightbox__overlay");
 
 const closeModalWindowFunkLightbox = function () {
-  console.log(event.target);
-  console.log(event.currentTarget);
-
   if (event.target === btnClose || event.target === imgModal) {
     return;
   }
-  console.log(555);
   divLightbox.classList.toggle("is-open");
   imgModal.src = "";
   window.removeEventListener("keydown", controlFunction);
+  window.removeEventListener("keydown", closeModalWindowByESCFunk);
 };
 
 divLightbox.addEventListener("click", closeModalWindowFunkLightbox);
 
 const closeModalWindowByESCFunk = function ({ key }) {
-  console.log(222);
   if (divLightbox.classList.contains("is-open") && key === "Escape") {
-    console.log(333);
     window.removeEventListener("keydown", controlFunction);
     closeModalWindowFunk();
+    window.removeEventListener("keydown", controlFunction);
+    window.removeEventListener("keydown", closeModalWindowByESCFunk);
   }
 };
-listOfPictures.addEventListener("keydown", closeModalWindowByESCFunk);
 
 function controlFunction({ key }) {
   if (key === "ArrowDown") {
