@@ -1,0 +1,21 @@
+
+ {{#each apidata}}
+ <h2 class="one-container-title">{{this.name}}</h2>
+<div class="one-container-wrapper">
+ <div class="wrapper-one-description">
+ <p>Capital:</p>
+ <span>{{this.capital}}</span>
+ <br>
+ <p>Population:</p>
+ <span>{{this.population}}</span>
+  <ul class="languages-list">Languages:
+    {{#each languages}}
+    <li class="languages-item">{{this.name}}</li>
+    {{/each}}
+      </ul>
+ </div>
+ <div class="wrapper-flag">
+  <img src="{{this.flag}}" alt="Flag of {{this.name}}">
+</div>
+</div>
+{{/each}}
