@@ -6,3 +6,5 @@ const input = document.querySelector('input');
 
 import fetchCountries from './fetchCountries';
 input.addEventListener('input', fetchCountries.bind(this, baseUrl));
+
+
