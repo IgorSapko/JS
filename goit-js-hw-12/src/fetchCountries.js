@@ -8,19 +8,17 @@ import { _ } from 'core-js';
 // import 'material-design-icons/iconfont/material-icons.css';
 import { alert, notice, info, success, error } from '@pnotify/core';
 
-
+const baseUrl = 'https://restcountries.eu/rest/v2/name/';
 const listContainer = document.querySelector('#list-container');
 const oneContainer = document.querySelector('#one-container');
 const input = document.querySelector('input');
 
-export default function fetchCountries(searchQuery) {
+export default function fetchCountries(event) {
   event.preventDefault();
-  // console.log(searchQuery)
-  console.log(input.value);
-  const currentRequest = String(input.value);
 
-  setTimeout(() => {
-    fetch(searchQuery + currentRequest)
+  const currentRequest = String(event.target.value);
+  if (currentRequest !== '') {
+    fetch(baseUrl + currentRequest)
       .then(Response => {
         if (Response.ok) return Response.json();
         throw new Error('error');
@@ -47,6 +45,12 @@ export default function fetchCountries(searchQuery) {
         }
         return data;
       })
-      .catch(error => console.log('Catched error'));
-  }, 500);
+      .catch(() => {
+        console.log('Catched error'),
+          error({
+            text:
+              'Sorry, any countries was founded. Please input other request!',
+          });
+      });
+  }
 }
